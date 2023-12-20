@@ -2,14 +2,21 @@ import React, { Component } from "react";
 
 class UserInput extends Component {
   state = { name: "" };
-
+  updateName = (e) => {
+    this.setState({ name: e.target.value });
+  };
+  handleSubmit = (e) => {
+    e.preventDefault();
+    this.setState({ name: "" });
+  };
   render() {
     return (
-      <form>
+      <form onSubmit={this.handleSubmit}>
         <input
           type="text"
           placeholder="Add a new name here..."
           value={this.state.name}
+          onChange={this.updateName}
         />
         <input type="submit" value="Create Name Tag" />
       </form>
