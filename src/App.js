@@ -6,12 +6,21 @@ class App extends Component {
   state = {
     names: ["Erin", "Ann", "Nichole", "Sharon", "Maryn"],
   };
-
+  componentDidMount() {
+    const stateString = localStorage.getItem("stateString");
+    if (stateString) {
+      const savedState = JSON.parse(stateString);
+      this.setState(savedState);
+    }
+  }
+  componentDidUpdate() {
+    const stateString = JSON.stringify(this.state);
+    localStorage.setItem("stateString", stateString);
+  }
   addName = (name) => {
     const newNames = [name, ...this.state.names];
     this.setState({ names: newNames });
   };
-
   removeName = (clickedIndex) => {
     // to learn how the .filter method works, check out https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
     const filterCallback = (_, index) => index !== clickedIndex;
